@@ -6,18 +6,18 @@ let cards = ['img/logo-atoll.png', 'img/logo-cyrus.png', 'img/logo-maxell.png',
     			 'img/product-adeo.png', 'img/product-atoll.png', 'img/product-cyrus.png', 
     			 'img/product-maxell.png', 'img/product-mf.png', 'img/product-triangle.png'];
 
-
 let cardsSort = cards.sort(() => {
    return 0.5 - Math.random();
 });
 
 
-
 function backCards() {
     let backImg = document.querySelectorAll(".hide");
-    cardsSort.forEach((el, i) => {
-        backImg[i].src = 'img/logo-ctc.png';
-    });
+	cardsSort.forEach((el, i) => {
+	    if (backImg[i]) {
+	        backImg[i].src = 'img/logo-ctc.png';
+	    }
+	});
 }
 
 
@@ -31,8 +31,8 @@ function changeCards() {
 
 
 //changeCards();
-backCards();
 
+backCards();
 
 
 
@@ -85,15 +85,26 @@ function checkTwoCards() {
 
     	for (let i = 0; i < arrCards.length; i++) {
 
-		        	if (checkCards[0].src === arrCards[i].logo && checkCards[1].src === arrCards[i].product ) {
-		            alert('test is done')         
-	        	} 
-	        } 
+	        if ((checkCards[0].src === arrCards[i].logo || checkCards[0].src === arrCards[i].product) && 
+	        	(checkCards[1].src === arrCards[i].logo || checkCards[1].src === arrCards[i].product)) {
+	            setTimeout(() => {
+	                checkCards[0].parentNode.classList.remove("check");
+	                checkCards[1].parentNode.classList.remove("check");
+	                checkCards[0].parentNode.classList.add("remove");
+	                checkCards[1].parentNode.classList.add("remove");
+	            }, delay);           
+	        } else {
+	            setTimeout(() => {
+	                checkCards[0].parentNode.classList.remove("check");
+	                checkCards[1].parentNode.classList.remove("check");
+	                checkCards[0].classList.add("hide");
+	                checkCards[1].classList.add("hide");
+	                backCards();
+	            }, delay);
+	        }    
         }  
+    }
 }
-
-
-
 
 
 
@@ -111,7 +122,24 @@ img.forEach(card2 => card2.addEventListener('click', checkTwoCards));
 
 
 
+
+
 /*
+
+
+function checkTwoCards() {
+    let checkCards = document.querySelectorAll(".check img");
+    if (checkCards.length === 2) {
+    	for (let i = 0; i < arrCards.length; i++) {
+		    if (checkCards[0].src === arrCards[i].logo && checkCards[1].src === arrCards[i].product ) {
+		        alert('test is done');         
+	        } 
+	    } 
+    }    
+}
+
+
+
 
 
 
