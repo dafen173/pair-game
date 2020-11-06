@@ -1,14 +1,36 @@
 
 
 let delay = 500;
+
+/*
 let cards = ['img/logo-atoll.png', 'img/logo-cyrus.png', 'img/logo-maxell.png', 
     			 'img/logo-mf.png', 'img/logo-triangle.png', 'img/logo-adeo.png', 
     			 'img/product-adeo.png', 'img/product-atoll.png', 'img/product-cyrus.png', 
     			 'img/product-maxell.png', 'img/product-mf.png', 'img/product-triangle.png'];
+*/
+
+
+let adeoProduct = {id:'adeo-pair', photo:'img/product-adeo.png'};
+let atollProduct = {id:'atoll-pair', photo:'img/product-atoll.png'};
+let cyrusProduct = {id:'cyrus-pair', photo:'img/product-cyrus.png'};			
+let maxellProduct = {id:'maxell-pair', photo:'img/product-maxell.png'};	
+let mfProduct = {id:'mf-pair', photo:'img/product-mf.png'};				
+let triangleProduct = {id:'triangle-pair', photo:'img/product-triangle.png'};	
+let adeoLogo = {id:'adeo-pair', photo:'img/logo-adeo.png'};
+let atollLogo = {id:'atoll-pair', photo:'img/logo-atoll.png'};
+let cyrusLogo = {id:'cyrus-pair', photo:'img/logo-cyrus.png'};			
+let maxellLogo = {id:'maxell-pair', photo:'img/logo-maxell.png'};	
+let mfLogo = {id:'mf-pair', photo:'img/logo-mf.png'};				
+let triangleLogo = {id:'triangle-pair', photo:'img/logo-triangle.png'};	
+
+
+let cards = [adeoProduct, atollProduct, cyrusProduct, maxellProduct, mfProduct, triangleProduct,
+			adeoLogo, atollLogo, cyrusLogo, maxellLogo, mfLogo, triangleLogo];
 
 let cardsSort = cards.sort(() => {
    return 0.5 - Math.random();
 });
+
 
 
 function backCards() {
@@ -23,31 +45,24 @@ function backCards() {
 
 let img = document.querySelectorAll(".flip-container img");
 function changeCards() {
-    //let img = document.querySelectorAll(".flip-container img");
     cardsSort.forEach((el, i) => {
-        img[i].src = el;
+        img[i].src = el.photo;
+        img[i].setAttribute('dataid', el.id);
     });
 }
 
 
-//changeCards();
 
+changeCards();
 backCards();
 
 
-
-
-//let testcards = document.querySelectorAll(".flip-container img");
-function flipCard() {
-  this.classList.toggle("hide");
-  this.parentNode.classList.toggle("check");
-  changeCards();
-  backCards();
-  //checkTwoCards();
-}
+alert(img[1].dataid);
 
 
 
+
+/*
 let arrCards = [{id:'adeo', 
 			logo:'img/logo-adeo.png', 
 			product:'img/product-adeo.png'},
@@ -71,11 +86,97 @@ let arrCards = [{id:'adeo',
 			{id:'triangle', 
 			logo:'img/logo-triangle.png', 
 			product:'img/product-triangle.png'}]
+*/
 
 
 
-//arr.indexOf(item, from) ищет item, начиная с индекса from, и возвращает индекс, на котором был найден искомый элемент, в противном случае -1
-//arr.includes(elem);
+
+//let openCards = [];
+
+
+function flipCard() {
+  this.classList.toggle("hide");
+  this.parentNode.classList.toggle("check");
+  changeCards();
+  backCards();
+  
+  //openCards.unshift(this.dataid);
+  //alert(openCards);
+}
+
+
+
+//ПОПРОБЫВАТЬ НАПОЛНИТЬ МАССИВ ОТКР КАРТ В Ф-ЦИИ!!!!!!
+
+
+
+
+
+/*
+let checkCards = document.querySelectorAll(".check img");
+function checkTwoCards() {
+    //let checkCards = document.querySelectorAll(".check img");
+    //if (openCards.length === 2) {
+
+    	//for (let i = 0; i < arrCards.length; i++) {
+
+	        if (checkCards[0].dataid !== checkCards[1].dataid) {	        
+	        	alert('test is done');	        	
+	        }   
+
+        //}  
+    //}
+}
+*/
+
+
+
+
+
+
+
+
+/*
+function checkTwoCards() {
+    //let checkCards = document.querySelectorAll(".check img");
+    //if (openCards.length === 2) {
+
+    	for (let i = 0; i < arrCards.length; i++) {
+
+	        if ((openCards[0].src === arrCards[i].logo || openCards[0].src === arrCards[i].product) && 
+	        	(openCards[1].src === arrCards[i].logo || openCards[1].src === arrCards[i].product)) {
+	        
+	        	alert('test is done');
+	        	
+	        }   
+
+        }  
+    //}
+}
+*/
+
+
+
+img.forEach(card => card.addEventListener('click', flipCard));
+
+//img.forEach(card2 => card2.addEventListener('click', checkTwoCards));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
 
 
 
@@ -109,22 +210,10 @@ function checkTwoCards() {
 
 
 
-img.forEach(card => card.addEventListener('click', flipCard));
-
-img.forEach(card2 => card2.addEventListener('click', checkTwoCards));
 
 
 
 
-
-
-
-
-
-
-
-
-/*
 
 
 function checkTwoCards() {
@@ -137,45 +226,6 @@ function checkTwoCards() {
 	    } 
     }    
 }
-
-
-
-
-
-
-
-
-function checkTwoCards() {
-    let checkCards = document.querySelectorAll(".check img");
-    if (checkCards.length === 2) {
-
-    	for (let i = 0; i < arrCards.length; i++) {
-
-	        if (checkCards[0].src === arrCards[i].logo && checkCards[1].src === arrCards[i].product ) {
-	            setTimeout(() => {
-	                checkCards[0].parentNode.classList.add("remove");
-	                checkCards[1].parentNode.classList.add("remove");
-	                checkCards[0].parentNode.classList.toggle("check");
-	                checkCards[1].parentNode.classList.toggle("check");
-	            }, delay);           
-	        } else {
-	            setTimeout(() => {
-	                checkCards[0].parentNode.classList.remove("check");
-	                checkCards[1].parentNode.classList.remove("check");
-	                checkCards[0].classList.toggle("hide");
-	                checkCards[1].classList.toggle("hide");
-	                backCards();
-	            }, delay);
-	        }
-    
-      
-        }  
-
-
-    }
-}
-
-
 
 
 
