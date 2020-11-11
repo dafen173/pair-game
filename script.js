@@ -32,7 +32,6 @@ let cardsSort = cards.sort(() => {
 });
 
 
-
 function backCards() {
     let backImg = document.querySelectorAll(".hide");
 	cardsSort.forEach((el, i) => {
@@ -43,51 +42,21 @@ function backCards() {
 }
 
 
-let img = document.querySelectorAll(".flip-container img");
+
+let imges = document.querySelectorAll(".flip-container img");
 function changeCards() {
     cardsSort.forEach((el, i) => {
-        img[i].src = el.photo;
-        img[i].setAttribute('dataid', el.id);
+        imges[i].src = el.photo;
+        imges[i].setAttribute('dataid', el.id);
     });
 }
-
 
 
 changeCards();
 backCards();
 
 
-alert(img[1].dataid);
-
-
-
-
-/*
-let arrCards = [{id:'adeo', 
-			logo:'img/logo-adeo.png', 
-			product:'img/product-adeo.png'},
-
-			{id:'atoll', 
-			logo:'img/logo-atoll.png', 
-			product:'img/product-atoll.png'},
-
-			{id:'cyrus', 
-			logo:'img/logo-cyrus.png', 
-			product:'img/product-cyrus.png'},
-
-			{id:'maxell', 
-			logo:'img/logo-maxell.png', 
-			product:'img/product-maxell.png'},
-
-			{id:'mf', 
-			logo:'img/logo-mf.png', 
-			product:'img/product-mf.png'},
-
-			{id:'triangle', 
-			logo:'img/logo-triangle.png', 
-			product:'img/product-triangle.png'}]
-*/
-
+alert(imges[2].getAttribute('dataid'));
 
 
 
@@ -99,77 +68,41 @@ function flipCard() {
   this.parentNode.classList.toggle("check");
   changeCards();
   backCards();
-  
+
   //openCards.unshift(this.dataid);
   //alert(openCards);
 }
 
 
 
-//ПОПРОБЫВАТЬ НАПОЛНИТЬ МАССИВ ОТКР КАРТ В Ф-ЦИИ!!!!!!
-
-
-
-
-
-/*
 let checkCards = document.querySelectorAll(".check img");
 function checkTwoCards() {
+
     //let checkCards = document.querySelectorAll(".check img");
     //if (openCards.length === 2) {
 
-    	//for (let i = 0; i < arrCards.length; i++) {
+    	//for (let i = 0; i < 1000; i++) {
 
-	        if (checkCards[0].dataid !== checkCards[1].dataid) {	        
+    		/*
+	        if (checkCards[0].getAttribute('dataid') === checkCards[1].getAttribute('dataid')) {	        
 	        	alert('test is done');	        	
 	        }   
+			*/
+			
+			alert(this.src);
+
+			alert(this.dataid);
 
         //}  
     //}
 }
-*/
 
 
 
 
+imges.forEach(card => card.addEventListener('click', flipCard));
 
-
-
-
-/*
-function checkTwoCards() {
-    //let checkCards = document.querySelectorAll(".check img");
-    //if (openCards.length === 2) {
-
-    	for (let i = 0; i < arrCards.length; i++) {
-
-	        if ((openCards[0].src === arrCards[i].logo || openCards[0].src === arrCards[i].product) && 
-	        	(openCards[1].src === arrCards[i].logo || openCards[1].src === arrCards[i].product)) {
-	        
-	        	alert('test is done');
-	        	
-	        }   
-
-        }  
-    //}
-}
-*/
-
-
-
-img.forEach(card => card.addEventListener('click', flipCard));
-
-//img.forEach(card2 => card2.addEventListener('click', checkTwoCards));
-
-
-
-
-
-
-
-
-
-
+imges.forEach(card2 => card2.addEventListener('click', checkTwoCards));
 
 
 
