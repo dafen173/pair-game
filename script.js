@@ -1,14 +1,6 @@
 
 
-let delay = 500;
-
-/*
-let cards = ['img/logo-atoll.png', 'img/logo-cyrus.png', 'img/logo-maxell.png', 
-    			 'img/logo-mf.png', 'img/logo-triangle.png', 'img/logo-adeo.png', 
-    			 'img/product-adeo.png', 'img/product-atoll.png', 'img/product-cyrus.png', 
-    			 'img/product-maxell.png', 'img/product-mf.png', 'img/product-triangle.png'];
-*/
-
+let delay = 600;
 
 let adeoProduct = {id:'adeo-pair', photo:'img/product-adeo.png'};
 let atollProduct = {id:'atoll-pair', photo:'img/product-atoll.png'};
@@ -23,7 +15,6 @@ let maxellLogo = {id:'maxell-pair', photo:'img/logo-maxell.png'};
 let mfLogo = {id:'mf-pair', photo:'img/logo-mf.png'};				
 let triangleLogo = {id:'triangle-pair', photo:'img/logo-triangle.png'};	
 
-
 let cards = [adeoProduct, atollProduct, cyrusProduct, maxellProduct, mfProduct, triangleProduct,
 			adeoLogo, atollLogo, cyrusLogo, maxellLogo, mfLogo, triangleLogo];
 
@@ -32,12 +23,20 @@ let cardsSort = cards.sort(() => {
 });
 
 
+
+
 function backCards() {
-    let backImg = document.querySelectorAll(".hide");
-	cardsSort.forEach((el, i) => {
+    let backImg = document.querySelectorAll(".flip-container .hide");
+	cardsSort.forEach((el, i) => {  
 	    if (backImg[i]) {
 	        backImg[i].src = 'img/logo-ctc.png';
 	    }
+		/*
+	    if (!backImg[i].contains('check')) {
+	        backImg[i].src = 'img/logo-ctc.png';
+	        backImg[i].classList.add("hide");
+	    }
+	    */
 	});
 }
 
@@ -51,57 +50,46 @@ function changeCards() {
     });
 }
 
-
 changeCards();
 backCards();
 
 
-alert(imges[2].getAttribute('dataid'));
-
-
-
-//let openCards = [];
-
-
 function flipCard() {
+  
+	//if (!backImg[i].hasClass('hide'))   
+
   this.classList.toggle("hide");
   this.parentNode.classList.toggle("check");
   changeCards();
   backCards();
-
-  //openCards.unshift(this.dataid);
-  //alert(openCards);
 }
 
 
-
-let checkCards = document.querySelectorAll(".check img");
 function checkTwoCards() {
+    let checkCards = document.querySelectorAll(".check img");
+    if (checkCards.length === 2) {
 
-    //let checkCards = document.querySelectorAll(".check img");
-    //if (openCards.length === 2) {
+	        if (checkCards[0].getAttribute('dataid') === checkCards[1].getAttribute('dataid')) {
 
-    	//for (let i = 0; i < 1000; i++) {
-
-    		/*
-	        if (checkCards[0].getAttribute('dataid') === checkCards[1].getAttribute('dataid')) {	        
-	        	alert('test is done');	        	
-	        }   
-			*/
-			
-			alert(this.src);
-
-			alert(this.dataid);
-
-        //}  
-    //}
+	            setTimeout(() => {
+	                checkCards[0].parentNode.classList.remove("check");
+	                checkCards[1].parentNode.classList.remove("check");
+	                checkCards[0].parentNode.classList.add("remove");
+	                checkCards[1].parentNode.classList.add("remove");
+	            }, delay);           
+	        } else {
+	            setTimeout(() => {
+	                checkCards[0].parentNode.classList.remove("check");
+	                checkCards[1].parentNode.classList.remove("check");
+	                checkCards[0].classList.add("hide");
+	                checkCards[1].classList.add("hide");
+	                backCards();
+	            }, delay);
+	        }     
+    }
 }
-
-
-
 
 imges.forEach(card => card.addEventListener('click', flipCard));
-
 imges.forEach(card2 => card2.addEventListener('click', checkTwoCards));
 
 
@@ -109,10 +97,6 @@ imges.forEach(card2 => card2.addEventListener('click', checkTwoCards));
 
 
 /*
-
-
-
-
 function checkTwoCards() {
     let checkCards = document.querySelectorAll(".check img");
     if (checkCards.length === 2) {
@@ -139,12 +123,6 @@ function checkTwoCards() {
         }  
     }
 }
-
-
-
-
-
-
 
 
 
