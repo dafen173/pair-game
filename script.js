@@ -1,6 +1,6 @@
 
 
-let delay = 600;
+let delay = 500;
 
 let adeoProduct = {id:'adeo-pair', photo:'img/product-adeo.png'};
 let atollProduct = {id:'atoll-pair', photo:'img/product-atoll.png'};
@@ -15,33 +15,37 @@ let maxellLogo = {id:'maxell-pair', photo:'img/logo-maxell.png'};
 let mfLogo = {id:'mf-pair', photo:'img/logo-mf.png'};				
 let triangleLogo = {id:'triangle-pair', photo:'img/logo-triangle.png'};	
 
-let cards = [adeoProduct, atollProduct, cyrusProduct, maxellProduct, mfProduct, triangleProduct,
+let cardsArr = [adeoProduct, atollProduct, cyrusProduct, maxellProduct, mfProduct, triangleProduct,
 			adeoLogo, atollLogo, cyrusLogo, maxellLogo, mfLogo, triangleLogo];
 
-let cardsSort = cards.sort(() => {
+let cardsSort = cardsArr.sort(() => {
    return 0.5 - Math.random();
 });
 
 
 
-
+/*
 function backCards() {
-    let backImg = document.querySelectorAll(".flip-container .hide");
+    let backImg = document.querySelectorAll(".flip-container .hide img");
 	cardsSort.forEach((el, i) => {  
 	    if (backImg[i]) {
 	        backImg[i].src = 'img/logo-ctc.png';
 	    }
-		/*
-	    if (!backImg[i].contains('check')) {
-	        backImg[i].src = 'img/logo-ctc.png';
-	        backImg[i].classList.add("hide");
-	    }
-	    */
 	});
 }
+*/
 
 
+let imges = document.querySelectorAll(".front-face");
+function changeCards() {
+    cardsSort.forEach((el, i) => {
+        imges[i].src = el.photo;
+        imges[i].setAttribute('dataid', el.id);
+    });
+}
+changeCards();
 
+/*
 let imges = document.querySelectorAll(".flip-container img");
 function changeCards() {
     cardsSort.forEach((el, i) => {
@@ -49,48 +53,90 @@ function changeCards() {
         imges[i].setAttribute('dataid', el.id);
     });
 }
-
 changeCards();
 backCards();
+*/
 
 
+
+/*
 function flipCard() {
   
 	//if (!backImg[i].hasClass('hide'))   
 
-  this.classList.toggle("hide");
+  this.parentNode.classList.toggle("hide");
+  //this.parentNode.classList.toggle("check");
   this.parentNode.classList.toggle("check");
+
   changeCards();
   backCards();
 }
+*/
+
+let cards = document.querySelectorAll('.memory-card');
+function flipCard() {
+  this.classList.toggle('flip');
+}
 
 
+
+/*
 function checkTwoCards() {
-    let checkCards = document.querySelectorAll(".check img");
+    let checkCards = document.querySelectorAll(".flip-container .flip img .front-face");
     if (checkCards.length === 2) {
 
 	        if (checkCards[0].getAttribute('dataid') === checkCards[1].getAttribute('dataid')) {
 
 	            setTimeout(() => {
-	                checkCards[0].parentNode.classList.remove("check");
-	                checkCards[1].parentNode.classList.remove("check");
-	                checkCards[0].parentNode.classList.add("remove");
-	                checkCards[1].parentNode.classList.add("remove");
+	                checkCards[0].parentNode.classList.remove("flip");
+	                checkCards[1].parentNode.classList.remove("flip");
+	                checkCards[0].parentNode.classList.add("delete");
+	                checkCards[1].parentNode.classList.add("delete");
 	            }, delay);           
 	        } else {
 	            setTimeout(() => {
-	                checkCards[0].parentNode.classList.remove("check");
-	                checkCards[1].parentNode.classList.remove("check");
-	                checkCards[0].classList.add("hide");
-	                checkCards[1].classList.add("hide");
-	                backCards();
+	                checkCards[0].parentNode.classList.toggle('flip');
+	                checkCards[1].parentNode.classList.toggle('flip');
+	                //checkCards[0].parentNode.classList.add("hide");
+	                //checkCards[1].parentNode.classList.add("hide");
+	                //backCards();
+	            }, delay);
+	        }     
+    }
+}
+*/
+
+
+function checkTwoCards() {
+    let checkCards = document.querySelectorAll(".flip img.front-face");
+    
+    if (checkCards.length === 2) {
+
+	        if (checkCards[0].getAttribute('dataid') === checkCards[1].getAttribute('dataid')) {
+
+	            setTimeout(() => {
+	                checkCards[0].parentNode.classList.remove("flip");
+	                checkCards[1].parentNode.classList.remove("flip");
+	                checkCards[0].parentNode.classList.add("delete");
+	                checkCards[1].parentNode.classList.add("delete");
+	            }, delay);           
+	        } else {
+	            setTimeout(() => {
+	                checkCards[0].parentNode.classList.toggle('flip');
+	                checkCards[1].parentNode.classList.toggle('flip');
+	                //checkCards[0].parentNode.classList.add("hide");
+	                //checkCards[1].parentNode.classList.add("hide");
+	                //backCards();
 	            }, delay);
 	        }     
     }
 }
 
-imges.forEach(card => card.addEventListener('click', flipCard));
-imges.forEach(card2 => card2.addEventListener('click', checkTwoCards));
+
+//let targetImg = document.querySelectorAll(".memory-card img");
+
+cards.forEach(card => card.addEventListener('click', flipCard));
+cards.forEach(card2 => card2.addEventListener('click', checkTwoCards));
 
 
 
@@ -124,19 +170,6 @@ function checkTwoCards() {
     }
 }
 
-
-
-
-function checkTwoCards() {
-    let checkCards = document.querySelectorAll(".check img");
-    if (checkCards.length === 2) {
-    	for (let i = 0; i < arrCards.length; i++) {
-		    if (checkCards[0].src === arrCards[i].logo && checkCards[1].src === arrCards[i].product ) {
-		        alert('test is done');         
-	        } 
-	    } 
-    }    
-}
 
 
 
